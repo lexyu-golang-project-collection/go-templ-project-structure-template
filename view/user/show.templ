@@ -1,0 +1,27 @@
+package user
+
+import "github.com/lexyu-golang-project-collection/go-templ-project-structure-template/view/layout"
+import "github.com/lexyu-golang-project-collection/go-templ-project-structure-template/view/components"
+import "github.com/lexyu-golang-project-collection/go-templ-project-structure-template/model"
+
+func getUser(c context.Context) string {
+	user, ok := c.Value("user").(string)
+	if !ok {
+		return ""
+	}
+	return user
+}
+
+templ Show(user model.User) {
+	// { ctx.Value("user").(string) }
+	<h1>
+		{ getUser(ctx) }
+	</h1>
+	@layout.Base() {
+		<h1>hello { user.Email } from the user page </h1>
+		@components.Input(components.InputProps{
+			Typ:  "email",
+			Name: "email",
+		})
+	}
+}
